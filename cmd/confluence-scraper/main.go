@@ -10,6 +10,7 @@ import (
 
 	"github.com/ktc-yuji-torii/confluence-scraper/config"
 	"github.com/ktc-yuji-torii/confluence-scraper/internal/client"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/parser"
 	"github.com/ktc-yuji-torii/confluence-scraper/models"
 
 	"github.com/spf13/cobra"
@@ -40,33 +41,44 @@ var rootCmd = &cobra.Command{
 		}
 		logger = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: level}))
 		logger.Info("Logger initialized", "config", struct {
-			BaseURL      string `json:"baseURL"`
-			Username     string `json:"username"`
-			ParentPageID string `json:"pageID"`
-			Debug        bool   `json:"debug"`
+			BaseURL    string `json:"baseURL"`
+			Username   string `json:"username"`
+			HomepageID string `json:"homepageID"`
+			Debug      bool   `json:"debug"`
 		}{
-			BaseURL:      cfg.BaseURL,
-			Username:     cfg.Username,
-			ParentPageID: cfg.ParentPageID,
-			Debug:        cfg.Debug,
+			BaseURL:    cfg.BaseURL,
+			Username:   cfg.Username,
+			HomepageID: cfg.HomepageID,
+			Debug:      cfg.Debug,
 		})
 
 		// アプリケーションのメイン処理
-		confluenceClient := client.NewConfluenceClient(*cfg, logger)
-		logger.Info("Starting to fetch pages recursively", "cfg.ParentPageID", cfg.ParentPageID)
+		client := client.NewConfluenceClient(*cfg, logger)
 
-		pages, err := confluenceClient.GetChildPagesRecursively(cfg.ParentPageID, *cfg)
+		// スペース情報を取得
+		space, err := client.GetSpaceByHomepageID(cfg.HomepageID, *cfg)
+		if err != nil {
+			logger.Error("Error fetching space by ID", "error", err)
+			return
+		}
+
+		// ページ情報を再帰的に取得
+		logger.Info("Starting to fetch pages recursively", "cfg.homepageID", space.HomepageID)
+		pages, err := client.GetChildPagesRecursively(space.HomepageID, *cfg)
 		if err != nil {
 			logger.Error("Error fetching child pages recursively", "error", err)
 			return
 		}
 
+		// ページ情報をOutputPageに変換
+		outputPages := parser.ConvertPagesToOutputPages(pages, *cfg)
+
 		logger.Info("Total Pages fetched", "count", len(pages))
 
 		// JSONファイルに保存
-		fileName := generateFileName(cfg.ParentPageID)
+		fileName := generateFileName(space.Key)
 		outputFilePath := filepath.Join("output", fileName)
-		err = savePagesToFile(outputFilePath, pages)
+		err = savePagesToFile(outputFilePath, outputPages)
 		if err != nil {
 			logger.Error("Error saving pages to file", "error", err)
 			return
@@ -83,7 +95,7 @@ func init() {
 	rootCmd.PersistentFlags().String("baseURL", "", "Base URL of the Confluence instance")
 	rootCmd.PersistentFlags().String("username", "", "Username for Confluence")
 	rootCmd.PersistentFlags().String("apiToken", "", "API token for Confluence")
-	rootCmd.PersistentFlags().String("parentPageID", "", "Parent Page ID in Confluence")
+	rootCmd.PersistentFlags().String("homepageID", "", "Parent Page ID in Confluence")
 	rootCmd.PersistentFlags().Bool("debug", false, "Enable debug mode")
 	rootCmd.PersistentFlags().BoolVar(&race, "race", false, "Enable race detection")
 
@@ -91,7 +103,7 @@ func init() {
 	rootCmd.MarkPersistentFlagRequired("baseURL")
 	rootCmd.MarkPersistentFlagRequired("username")
 	rootCmd.MarkPersistentFlagRequired("apiToken")
-	rootCmd.MarkPersistentFlagRequired("parentPageID")
+	rootCmd.MarkPersistentFlagRequired("homepageID")
 }
 
 func initConfig() {

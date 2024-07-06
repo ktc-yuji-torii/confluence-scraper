@@ -6,11 +6,11 @@ import (
 )
 
 type Config struct {
-	BaseURL      string
-	Username     string
-	APIToken     string
-	ParentPageID string
-	Debug        bool
+	BaseURL    string
+	Username   string
+	APIToken   string
+	HomepageID string
+	Debug      bool
 }
 
 func LoadConfig(cmd *cobra.Command) (*Config, error) {
@@ -18,16 +18,16 @@ func LoadConfig(cmd *cobra.Command) (*Config, error) {
 	viper.BindPFlag("baseURL", cmd.PersistentFlags().Lookup("baseURL"))
 	viper.BindPFlag("username", cmd.PersistentFlags().Lookup("username"))
 	viper.BindPFlag("apiToken", cmd.PersistentFlags().Lookup("apiToken"))
-	viper.BindPFlag("parentPageID", cmd.PersistentFlags().Lookup("parentPageID"))
+	viper.BindPFlag("homepageID", cmd.PersistentFlags().Lookup("homepageID"))
 	viper.BindPFlag("debug", cmd.PersistentFlags().Lookup("debug"))
 
 	// Viperを使用して設定値を取得
 	config := &Config{
-		BaseURL:      viper.GetString("baseURL"),
-		Username:     viper.GetString("username"),
-		APIToken:     viper.GetString("apiToken"),
-		ParentPageID: viper.GetString("parentPageID"),
-		Debug:        viper.GetBool("debug"),
+		BaseURL:    viper.GetString("baseURL"),
+		Username:   viper.GetString("username"),
+		APIToken:   viper.GetString("apiToken"),
+		HomepageID: viper.GetString("homepageID"),
+		Debug:      viper.GetBool("debug"),
 	}
 
 	return config, nil

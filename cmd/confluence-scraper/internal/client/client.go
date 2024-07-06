@@ -27,8 +27,8 @@ func NewConfluenceClient(cfg config.Config, logger *slog.Logger) *ConfluenceClie
 	}
 }
 
-func (c *ConfluenceClient) GetChildPages(parentPageID string) (string, error) {
-	url := fmt.Sprintf("%s/wiki/api/v2/pages/%s/children", c.config.BaseURL, parentPageID)
+func (c *ConfluenceClient) GetChildPages(homepageID string) (string, error) {
+	url := fmt.Sprintf("%s/wiki/api/v2/pages/%s/children", c.config.BaseURL, homepageID)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err
@@ -86,14 +86,14 @@ func (c *ConfluenceClient) GetPageContent(pageID string) (string, error) {
 	return string(body), nil
 }
 
-func (c *ConfluenceClient) GetChildPagesRecursively(parentPageID string, cfg config.Config) ([]models.OutputPage, error) {
-	var allPages []models.OutputPage
+func (c *ConfluenceClient) GetChildPagesRecursively(homepageID string, cfg config.Config) ([]models.Page, error) {
+	var allPages []models.Page
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 
-	c.logger.Debug("Fetching child pages", "parentPageID", parentPageID)
+	c.logger.Debug("Fetching child pages", "homepageID", homepageID)
 
-	childPagesJSON, err := c.GetChildPages(parentPageID)
+	childPagesJSON, err := c.GetChildPages(homepageID)
 	if err != nil {
 		return nil, err
 	}
@@ -122,20 +122,13 @@ func (c *ConfluenceClient) GetChildPagesRecursively(parentPageID string, cfg con
 				return
 			}
 
-			outputPage := models.OutputPage{
-				ID:      page.ID,
-				Title:   page.Title,
-				Content: page.Content,
-				URL:     page.URL,
-			}
-
 			mu.Lock()
-			allPages = append(allPages, outputPage)
+			allPages = append(allPages, page)
 			mu.Unlock()
 
 			subPages, err := c.GetChildPagesRecursively(childPage.ID, cfg)
 			if err != nil {
-				c.logger.Error("Error fetching child pages", "parentPageID", childPage.ID, "error", err)
+				c.logger.Error("Error fetching child pages", "homepageID", childPage.ID, "error", err)
 				return
 			}
 
@@ -147,6 +140,119 @@ func (c *ConfluenceClient) GetChildPagesRecursively(parentPageID string, cfg con
 
 	wg.Wait()
 
-	c.logger.Debug("Completed fetching child pages", "parentPageID", parentPageID)
+	c.logger.Debug("Completed fetching child pages", "homepageID", homepageID)
 	return allPages, nil
+}
+
+// GetSpaces fetches the list of spaces from Confluence API v2.
+func (c *ConfluenceClient) GetSpaces() ([]models.Space, error) {
+	url := fmt.Sprintf("%s/wiki/api/v2/spaces", c.config.BaseURL)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		slog.Error("Error creating request", "error", err, "url", url)
+		return nil, err
+	}
+
+	auth := base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.config.Username, c.config.APIToken)))
+	req.Header.Add("Authorization", "Basic "+auth)
+	req.Header.Add("Content-Type", "application/json")
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("failed to fetch spaces: %s", resp.Status)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	spaces, err := parser.ParseSpaceData(string(body))
+	if err != nil {
+		return nil, err
+	}
+
+	return spaces, nil
+}
+
+// GetSpaceByID fetches a specific space by its ID from Confluence API v2.
+func (c *ConfluenceClient) GetSpaceByID(spaceID string) (models.Space, error) {
+	url := fmt.Sprintf("%s/wiki/api/v2/spaces/%s", c.config.BaseURL, spaceID)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		slog.Error("Error creating request", "error", err, "url", url)
+		return models.Space{}, err
+	}
+
+	auth := base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.config.Username, c.config.APIToken)))
+	req.Header.Add("Authorization", "Basic "+auth)
+	req.Header.Add("Content-Type", "application/json")
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return models.Space{}, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return models.Space{}, fmt.Errorf("failed to fetch space: %s", resp.Status)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return models.Space{}, err
+	}
+
+	space, err := parser.ParseSingleSpaceData(string(body))
+	if err != nil {
+		return models.Space{}, err
+	}
+
+	return space, nil
+}
+
+// GetSpaceByHomepageID fetches a specific space by its homepage ID from Confluence API v2.
+func (c *ConfluenceClient) GetSpaceByHomepageID(homepageID string, cfg config.Config) (models.Space, error) {
+	url := fmt.Sprintf("%s/wiki/api/v2/pages/%s", c.config.BaseURL, homepageID)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		slog.Error("Error creating request", "error", err, "url", url)
+		return models.Space{}, err
+	}
+
+	auth := base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.config.Username, c.config.APIToken)))
+	req.Header.Add("Authorization", "Basic "+auth)
+	req.Header.Add("Content-Type", "application/json")
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return models.Space{}, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return models.Space{}, fmt.Errorf("failed to fetch space: %s", resp.Status)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return models.Space{}, err
+	}
+
+	page, err := parser.ParsePageContent(string(body), cfg)
+	if err != nil {
+		return models.Space{}, err
+	}
+
+	space, err := c.GetSpaceByID(page.SpaceID)
+	if err != nil {
+		return models.Space{}, err
+	}
+
+	return space, nil
 }
