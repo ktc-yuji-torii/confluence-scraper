@@ -44,7 +44,7 @@ Confluence Scraper を効果的に利用するには、システムに Go がイ
 Confluence Scraper を実行するには、以下のコマンドを使用します：
 
 ```sh
-./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net/wiki --username=your-username --apiToken=your-api-token --parentPageID=your-parent-page-id --debug=true
+./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net --username=your-username --apiToken=your-api-token --parentPageID=your-parent-page-id --debug=true
 ```
 
 ## ビルド手順
@@ -73,7 +73,7 @@ VS Code を使用している場合、以下の`launch.json`設定を使用し�
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
             "args": [
-                "--baseURL=https://your-confluence-instance.atlassian.net/wiki",
+                "--baseURL=https://your-confluence-instance.atlassian.net",
                 "--username=your-username",
                 "--apiToken=your-api-token",
                 "--parentPageID=your-parent-page-id",

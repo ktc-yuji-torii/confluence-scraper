@@ -44,7 +44,7 @@ Configuration parameters are provided via command-line arguments. The required p
 To run Confluence Scraper, use the following command:
 
 ```sh
-./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net/wiki --username=your-username --apiToken=your-api-token --parentPageID=your-parent-page-id --debug=true
+./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net --username=your-username --apiToken=your-api-token --parentPageID=your-parent-page-id --debug=true
 ```
 
 ## Build Instructions
@@ -73,7 +73,7 @@ If you are using VS Code, you can use the following `launch.json` configuration 
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
             "args": [
-                "--baseURL=https://your-confluence-instance.atlassian.net/wiki",
+                "--baseURL=https://your-confluence-instance.atlassian.net",
                 "--username=your-username",
                 "--apiToken=your-api-token",
                 "--parentPageID=your-parent-page-id",
