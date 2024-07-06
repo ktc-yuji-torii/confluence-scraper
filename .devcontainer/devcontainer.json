@@ -1,0 +1,68 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "${localWorkspaceFolderBasename}",
+    "dockerComposeFile": [
+        "../docker-compose.yml",
+        "docker-compose.yml"
+    ],
+    "service": "devcontainer",
+    "remoteEnv": {
+        "HOST_DIR": "${localWorkspaceFolder}"
+      },
+    "initializeCommand": "bash .devcontainer/initialize.sh",
+    "postCreateCommand": "bash .devcontainer/post-create.sh",
+    "postAttachCommand": "bash .devcontainer/post-attach.sh ${containerWorkspaceFolder}",
+    "features": {
+        "ghcr.io/devcontainers/features/go:1": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Configure tool-specific properties.
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.guides.bracketPairs": true,
+                "editor.stickyScroll.enabled": true,
+                "editor.stickyScroll.maxLineCount": 5,
+                "workbench.colorCustomizations": {
+                    "editorStickyScroll.background": "#00708D",
+                    "editorStickyScrollHover.background": "#59A2B5"
+                },
+                "editor.formatOnSave": true,
+                "[go]": {
+                    "editor.formatOnSave": true,
+                    "editor.defaultFormatter": "golang.go"
+                },
+                "go.toolsManagement.autoUpdate": true,
+                "go.formatTool": "gofmt",
+                // "clang-format.language.proto.style": "{ IndentWidth: 4, BasedOnStyle: Google }", .clang-format より優先される
+                "clang-format.executable": "/usr/bin/clang-format"
+            },
+            "extensions": [
+                "ms-vscode.makefile-tools",
+                "GitHub.vscode-pull-request-github",
+                "github.vscode-github-actions",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "mhutchie.git-graph", // git graph
+                "streetsidesoftware.code-spell-checker",
+                "naumovs.color-highlight",
+                "42Crunch.vscode-openapi", // openapi
+                "hashicorp.terraform",
+                "tamasfe.even-better-toml", // toml
+                // graphql
+                "graphql.vscode-graphql",
+                "graphql.vscode-graphql-syntax",
+                //
+                "Gruntfuggly.todo-tree",
+                "oderwat.indent-rainbow"
+            ]
+        }
+	}
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

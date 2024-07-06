@@ -1,0 +1,3 @@
+networks:
+  common-external-network:
+    external: true
