@@ -36,7 +36,7 @@ Confluence Scraper を効果的に利用するには、システムに Go がイ
 - `baseURL`: Confluence インスタンスのベース URL
 - `username`: Confluence のユーザー名
 - `apiToken`: Confluence の API トークン
-- `parentPageID`: Confluence の親ページ ID
+- `homepageID`: Confluence の親ページ ID
 - `debug`: デバッグモードを有効にする（オプション）
 
 ## 使い方
@@ -44,7 +44,7 @@ Confluence Scraper を効果的に利用するには、システムに Go がイ
 Confluence Scraper を実行するには、以下のコマンドを使用します：
 
 ```sh
-./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net --username=your-username --apiToken=your-api-token --parentPageID=your-parent-page-id --debug=true
+./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net --username=your-username --apiToken=your-api-token --homepageID=your-parent-page-id --debug=true
 ```
 
 ## ビルド手順
@@ -76,7 +76,7 @@ VS Code を使用している場合、以下の`launch.json`設定を使用し�
                 "--baseURL=https://your-confluence-instance.atlassian.net",
                 "--username=your-username",
                 "--apiToken=your-api-token",
-                "--parentPageID=your-parent-page-id",
+                "--homepageID=your-parent-page-id",
                 "--debug=true"
             ],
             "env": {},

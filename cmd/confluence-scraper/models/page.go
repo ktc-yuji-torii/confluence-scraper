@@ -155,10 +155,3 @@ type PageContent struct {
 	Content string `json:"content"` // The content of the page (in HTML format)
 	Space   Space  `json:"space"`   // The space to which the page belongs
 }
-
-// Space represents the information of a Confluence space.
-type Space struct {
-	ID   string `json:"id"`   // The ID of the space
-	Key  string `json:"key"`  // The key of the space
-	Name string `json:"name"` // The name of the space
-}

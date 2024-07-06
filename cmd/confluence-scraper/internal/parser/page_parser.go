@@ -78,3 +78,26 @@ func ParseChildPages(jsonData string) (models.ChildPages, error) {
 	}
 	return childPages, nil
 }
+
+// ConvertToOutputPage converts a Page object to an OutputPage object.
+func ConvertToOutputPage(page models.Page, cfg config.Config) models.OutputPage {
+	decodedContent := html.UnescapeString(page.Body.Storage.Value)
+	plainTextContent := removeHTMLTagsAndFormat(decodedContent)
+
+	return models.OutputPage{
+		ID:      page.ID,
+		Title:   page.Title,
+		Content: plainTextContent,
+		URL:     fmt.Sprintf("%s/spaces/%s/pages/%s", cfg.BaseURL, page.SpaceID, page.ID),
+	}
+}
+
+// ConvertPagesToOutputPages converts a slice of Page objects to a slice of OutputPage objects.
+func ConvertPagesToOutputPages(pages []models.Page, cfg config.Config) []models.OutputPage {
+	var outputPages []models.OutputPage
+	for _, page := range pages {
+		outputPage := ConvertToOutputPage(page, cfg)
+		outputPages = append(outputPages, outputPage)
+	}
+	return outputPages
+}

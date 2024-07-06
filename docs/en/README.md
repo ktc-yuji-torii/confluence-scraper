@@ -36,7 +36,7 @@ Configuration parameters are provided via command-line arguments. The required p
 - `baseURL`: The base URL of your Confluence instance.
 - `username`: Your Confluence username.
 - `apiToken`: Your Confluence API token.
-- `parentPageID`: The parent page ID in Confluence.
+- `homepageID`: The parent page ID in Confluence.
 - `debug`: Enable debug mode (optional).
 
 ## Usage
@@ -44,7 +44,7 @@ Configuration parameters are provided via command-line arguments. The required p
 To run Confluence Scraper, use the following command:
 
 ```sh
-./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net --username=your-username --apiToken=your-api-token --parentPageID=your-parent-page-id --debug=true
+./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net --username=your-username --apiToken=your-api-token --homepageID=your-parent-page-id --debug=true
 ```
 
 ## Build Instructions
@@ -76,7 +76,7 @@ If you are using VS Code, you can use the following `launch.json` configuration 
                 "--baseURL=https://your-confluence-instance.atlassian.net",
                 "--username=your-username",
                 "--apiToken=your-api-token",
-                "--parentPageID=your-parent-page-id",
+                "--homepageID=your-parent-page-id",
                 "--debug=true"
             ],
             "env": {},
