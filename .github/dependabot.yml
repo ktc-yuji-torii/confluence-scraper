@@ -6,14 +6,22 @@
 version: 2
 updates:
   - package-ecosystem: "gomod" # See documentation for possible values
-    directory: "/" # Location of package manifests
+    directory: "/cmd/confluence-scraper" # Location of package manifests
     schedule:
       interval: "weekly"
     commit-message:
       prefix: "build(deps): 🤖"
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "docker" # See documentation for possible values
-    directory: "/" # Location of package manifests
+    directory: "/.devcontainer" # Location of package manifests
     schedule:
       interval: "weekly"
 

@@ -7,6 +7,7 @@
         "docker-compose.yml"
     ],
     "service": "devcontainer",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "remoteEnv": {
         "HOST_DIR": "${localWorkspaceFolder}"
       },
@@ -52,7 +53,6 @@
                 "streetsidesoftware.code-spell-checker",
                 "naumovs.color-highlight",
                 "42Crunch.vscode-openapi", // openapi
-                "hashicorp.terraform",
                 "tamasfe.even-better-toml", // toml
                 // graphql
                 "graphql.vscode-graphql",

@@ -18,9 +18,9 @@
         {"type": "ci", "section": "Continuous Integration"}
     ],
     "packages": {
-        "cmd/sample": {
+        "cmd/confluence-scraper": {
             "release-type": "go",
-            "component": "sample"
+            "component": "confluence-scraper"
         }
     },
     "plugins": ["sentence-case"]

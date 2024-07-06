@@ -1,6 +1,6 @@
-# Golang Devcontainers
+# Confluence Scraper
 
-Golang Devcontainers is a project that provides a development environment for Go using Visual Studio Code Dev Containers. For more details, please refer to the documentation in your preferred language.
+Confluence Scraper is a powerful tool designed to retrieve and save structured Confluence page data. This project leverages Confluence's REST API to comprehensively extract data and store it in JSON format. It is specifically designed for use in Retrieval-Augmented Generation (RAG) models. For more details, please refer to the documentation in your preferred language.
 
 - [English](./docs/en/README.md)
 - [日本語](./docs/ja/README.md)

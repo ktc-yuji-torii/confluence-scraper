@@ -1,86 +1,94 @@
-# Golang DevContainers
+# Confluence Scraper
 
-Golang DevContainers is a project that provides a development environment for Go using Visual Studio Code Dev Containers. This setup aims to simplify the development process by offering a consistent environment with all necessary tools and dependencies pre-installed.
+Confluence Scraper is a powerful tool designed to retrieve and save structured Confluence page data. This project leverages Confluence's REST API to comprehensively extract data and store it in JSON format.
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Configuration](#configuration)
 - [Usage](#usage)
+- [Build Instructions](#build-instructions)
+- [Debugging with VS Code](#debugging-with-vs-code)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Introduction
-
-This repository contains the configuration files and setup instructions to create a fully-featured development environment for Go using Visual Studio Code's Dev Containers. Dev Containers allow you to open a project in a containerized environment, ensuring consistency across different development setups.
-
-## Features
-
-- Pre-configured development environment for Go.
-- Integration with Visual Studio Code.
-- Automatic installation of necessary tools and dependencies.
-- Supports both x86_64 and ARM64 architectures.
-
-## Prerequisites
-
-Before using this project, ensure you have the following installed on your system:
-
-- [Docker](https://www.docker.com/)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Remote - Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-
 ## Installation
 
-Follow these steps to set up the development environment:
+To effectively utilize Confluence Scraper, ensure that Go is installed on your system. For Go installation instructions, refer to the official site [golang.org](https://golang.org/).
 
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/ktc-yuji-torii/golang-devcontainers.git
-    cd golang-devcontainers
+    git clone https://github.com/your-username/confluence-scraper.git
+    cd confluence-scraper
     ```
 
-2. Open the repository in Visual Studio Code:
+2. Install dependencies:
 
     ```sh
-    code .
+    go mod tidy
     ```
 
-3. Reopen the folder in the container:
-    - Press `F1` to open the command palette.
-    - Type `Remote-Containers: Reopen in Container` and select it.
+## Configuration
 
-VS Code will build the container image and start a development container with the pre-configured environment.
+Configuration parameters are provided via command-line arguments. The required parameters are as follows:
+
+- `baseURL`: The base URL of your Confluence instance.
+- `username`: Your Confluence username.
+- `apiToken`: Your Confluence API token.
+- `parentPageID`: The parent page ID in Confluence.
+- `debug`: Enable debug mode (optional).
 
 ## Usage
 
-Once the development container is running, you can start developing your Go applications. The container comes with all necessary tools and dependencies pre-installed, including:
-
-- Go
-- Common Go tools (e.g., `gofmt`, `goimports`)
-- VS Code Go extension
-
-### Building Your Project
-
-To build your Go project inside the container, use the following command:
+To run Confluence Scraper, use the following command:
 
 ```sh
-go build -o your-output-binary
+./confluence-scraper --baseURL=https://your-confluence-instance.atlassian.net/wiki --username=your-username --apiToken=your-api-token --parentPageID=your-parent-page-id --debug=true
 ```
 
-### Running Tests
+## Build Instructions
 
-To run tests, use the following command:
+This project includes a `Makefile` to facilitate the build process. The `Makefile` automatically detects the system architecture and sets the appropriate `GOARCH` value.
 
-```sh
-go test ./...
+1. Ensure you are in the project directory.
+2. Run the build command:
+
+    ```sh
+    make build
+    ```
+
+## Debugging with VS Code
+
+If you are using VS Code, you can use the following `launch.json` configuration to debug the application:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Go Program",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--baseURL=https://your-confluence-instance.atlassian.net/wiki",
+                "--username=your-username",
+                "--apiToken=your-api-token",
+                "--parentPageID=your-parent-page-id",
+                "--debug=true"
+            ],
+            "env": {},
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
 ```
 
 ## Contributing
 
-We welcome contributions to improve Golang Devcontainers. To contribute, please follow these steps:
+We welcome contributions to improve Confluence Scraper. To contribute, please follow these steps:
 
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature/your-feature-name`).
@@ -90,3 +98,7 @@ We welcome contributions to improve Golang Devcontainers. To contribute, please 
 6. Open a pull request.
 
 Please ensure your code adheres to the project's coding standards and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
