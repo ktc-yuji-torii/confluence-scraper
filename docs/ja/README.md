@@ -20,7 +20,7 @@ Confluence Scraper を効果的に利用するには、システムに Go がイ
 
     ```sh
     git clone https://github.com/your-username/confluence-scraper.git
-    cd confluence-scraper
+    cd cmd/confluence-scraper
     ```
 
 2. 依存関係をインストールします:
@@ -71,7 +71,7 @@ VS Code を使用している場合、以下の`launch.json`設定を使用し�
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/main.go",
+            "program": "${workspaceFolder}/cmd/confluence-scraper/main.go",
             "args": [
                 "--baseURL=https://your-confluence-instance.atlassian.net",
                 "--username=your-username",
