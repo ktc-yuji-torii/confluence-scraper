@@ -20,7 +20,7 @@ To effectively utilize Confluence Scraper, ensure that Go is installed on your s
 
     ```sh
     git clone https://github.com/your-username/confluence-scraper.git
-    cd confluence-scraper
+    cd cmd/confluence-scraper
     ```
 
 2. Install dependencies:
