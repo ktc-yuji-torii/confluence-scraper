@@ -71,7 +71,7 @@ If you are using VS Code, you can use the following `launch.json` configuration 
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/main.go",
+            "program": "${workspaceFolder}/cmd/confluence-scraper/main.go",
             "args": [
                 "--baseURL=https://your-confluence-instance.atlassian.net",
                 "--username=your-username",
