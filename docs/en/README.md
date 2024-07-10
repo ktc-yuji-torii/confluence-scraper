@@ -35,7 +35,7 @@ Configuration parameters are provided via command-line arguments. The required p
 
 - `baseURL`: The base URL of your Confluence instance.
 - `username`: Your Confluence username.
-- `apiToken`: Your Confluence API token.
+- `apiToken`: Your Confluence API token (available [here](https://id.atlassian.com/manage-profile/security/api-tokens))
 - `homepageID`: The parent page ID in Confluence.
 - `debug`: Enable debug mode (optional).
 

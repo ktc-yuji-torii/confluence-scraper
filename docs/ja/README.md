@@ -35,7 +35,7 @@ Confluence Scraper を効果的に利用するには、システムに Go がイ
 
 - `baseURL`: Confluence インスタンスのベース URL
 - `username`: Confluence のユーザー名
-- `apiToken`: Confluence の API トークン
+- `apiToken`: Confluence の API トークン（[こちら](https://id.atlassian.com/manage-profile/security/api-tokens)から取得可能）
 - `homepageID`: Confluence の親ページ ID
 - `debug`: デバッグモードを有効にする（オプション）
 
