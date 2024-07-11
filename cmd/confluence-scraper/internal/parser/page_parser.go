@@ -88,7 +88,7 @@ func ConvertToOutputPage(page models.Page, cfg config.Config) models.OutputPage 
 		ID:      page.ID,
 		Title:   page.Title,
 		Content: plainTextContent,
-		URL:     fmt.Sprintf("%s/spaces/%s/pages/%s", cfg.BaseURL, page.SpaceID, page.ID),
+		URL:     fmt.Sprintf("%s/wiki/spaces/%s/pages/%s", cfg.BaseURL, page.SpaceID, page.ID),
 	}
 }
 
