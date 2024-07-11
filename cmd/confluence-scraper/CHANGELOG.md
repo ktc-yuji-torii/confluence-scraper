@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/ktc-yuji-torii/confluence-scraper/compare/confluence-scraper/v1.0.1...confluence-scraper/v1.0.2) (2024-07-11)
+
+
+### Bug Fixes
+
+* Update page_parser.go ([e8284ee](https://github.com/ktc-yuji-torii/confluence-scraper/commit/e8284ee19aca3b0a22b85f510974fcc96ef3940c))
+
 ## [1.0.1](https://github.com/ktc-yuji-torii/confluence-scraper/compare/confluence-scraper/v1.0.0...confluence-scraper/v1.0.1) (2024-07-06)
 
 
