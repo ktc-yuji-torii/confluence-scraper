@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ktc-yuji-torii/confluence-scraper/config"
-	"github.com/ktc-yuji-torii/confluence-scraper/models"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/config"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/models"
 )
 
 // Unicodeエスケープシーケンスをデコードする関数

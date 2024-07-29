@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/ktc-yuji-torii/confluence-scraper/config"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/config"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/models"
 	"github.com/ktc-yuji-torii/confluence-scraper/internal/parser"
-	"github.com/ktc-yuji-torii/confluence-scraper/models"
 )
 
 type ConfluenceClient struct {
