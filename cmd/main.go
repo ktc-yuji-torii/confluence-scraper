@@ -8,10 +8,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ktc-yuji-torii/confluence-scraper/config"
 	"github.com/ktc-yuji-torii/confluence-scraper/internal/client"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/config"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/models"
 	"github.com/ktc-yuji-torii/confluence-scraper/internal/parser"
-	"github.com/ktc-yuji-torii/confluence-scraper/models"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

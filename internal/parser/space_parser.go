@@ -3,7 +3,7 @@ package parser
 import (
 	"encoding/json"
 
-	"github.com/ktc-yuji-torii/confluence-scraper/models"
+	"github.com/ktc-yuji-torii/confluence-scraper/internal/models"
 )
 
 // ParseSpaceData parses JSON data and returns a list of Space objects.

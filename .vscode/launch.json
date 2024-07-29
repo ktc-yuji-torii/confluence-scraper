@@ -1,0 +1,25 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "launch API server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/confluence-scraper/main.go",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--race",
+                "--baseURL=https://kinto-dev.atlassian.net",
+                "--username=yuji.torii@kinto-technologies.com",
+                "--apiToken=ATATT3xFfGF07zwxxhidDuws6taxROkXZrkPde_jlMEbp8nW--bPZXUYkMNTya2utFS8WlLXGM3k-KHn2epHEzFUS1I0BDe4DnC5Uk97wZ6Ca4IQRQDK4ZupvAXh_aGPP8GOU0p-8NA3aYAO5ZMa4mirj0rO391sva2RtFP26hLjZ3q1hEPQdNU=E54DCDA2",
+                "--homepageID=1058015869",
+                "--debug=true"
+            ],
+            "env": {}
+        }
+    ]
+}
