@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/ktc-yuji-torii/confluence-scraper/compare/confluence-scraper/v1.0.2...confluence-scraper/v1.0.3) (2024-07-29)
+
+
+### Miscellaneous Chores
+
+* Update go.mod ([9103b85](https://github.com/ktc-yuji-torii/confluence-scraper/commit/9103b85c7fd6f038ef7081b2153a75476e952120))
+
 ## [1.0.2](https://github.com/ktc-yuji-torii/confluence-scraper/compare/confluence-scraper/v1.0.1...confluence-scraper/v1.0.2) (2024-07-11)
 
 
