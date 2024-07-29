@@ -1,4 +1,4 @@
-module github.com/ktc-yuji-torii/confluence-scraper
+module github.com/ktc-yuji-torii/confluence-scraper/cmd/confluence-scraper
 
 go 1.22.4
 
